@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "basket-ui",
+  "version-semver": "0.1.0",
+  "builtin-baseline": "e03dc9b29710050cd1018bc5674688108658d327",
+  "dependencies": [
+    "boost-program-options",
+    "gtest",
+    {
+      "name": "qtbase",
+      "default-features": false,
+      "features": [
+        "widgets"
+      ]
+    },
+    {
+      "name": "qtbase",
+      "default-features": false,
+      "features": [
+        "fontconfig",
+        "xcb"
+      ],
+      "platform": "linux"
+    },
+    "spdlog"
+  ]
+}
