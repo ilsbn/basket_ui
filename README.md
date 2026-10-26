@@ -2,10 +2,24 @@
 
 A C++20 / Qt 6 Widgets application with a basket overview prototype.
 
-The overview is defined in `src/basket_overview.ui`, editable in Qt Designer.
-It shows 20 sample baskets, sequence fields, status selectors, and a basket-type
-selector. The colours and summary counts are fixed design data: changing a field
-does not update colours, totals, or saved data.
+The overview shell is defined in `src/basket_overview.ui`. Each tile uses the same
+`BasketWidget` and `src/basket_widget.ui` form, editable in Qt Designer. The overview
+receives a `BasketArray` (`std::array<BasketDetails, 20>`) and creates one tile per
+entry, in array order. Each tile takes a `BasketDetails` struct containing `index`,
+`sequence`, and `BasketStatus status`. Sample data is supplied by the main window;
+the widgets own copies of their data without retaining caller references.
+Sequence and status edits emit `BasketWidget::basketChanged(BasketDetails)`.
+The overview updates the corresponding array position and emits
+`BasketOverview::basketsChanged(BasketArray)`. `MainWindow` keeps the latest array,
+available through `baskets()`, and emits its own `basketsChanged` signal for
+persistence code to connect to. Queued connections receive snapshots of each edit.
+Changing status also updates the tile colour. The overview's **In progress** and
+**Pending** fields accept non-negative integers, independent of tile statuses.
+They emit `inProgressChanged(int)` and `pendingChanged(int)`; basket type emits
+`basketTypeChanged(QString)` for standard, premium, or platinum.
+`MainWindow::overviewSettings()` exposes all three current values, and
+`overviewSettingsChanged(BasketOverviewSettings)` provides a complete snapshot
+after each edit for persistence. Storage and loading are not implemented yet.
 
 ## Prerequisites
 
@@ -97,6 +111,8 @@ cmake/              Qt platform-plugin deployment helper
 src/main.cpp        Command-line options, logging, and Qt event loop
 src/main_window.*   Main window hosting the basket overview
 src/basket_overview.* Qt Designer form and widget setup
+src/basket_widget.* Reusable basket tile and its Qt Designer form
+src/basket_details.h BasketDetails, BasketStatus, and the fixed-size BasketArray
 tests/              GoogleTest/GoogleMock smoke tests and test entry point
 ```
 
