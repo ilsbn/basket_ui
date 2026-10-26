@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure Basket UI (Debug)",
+      "type": "cmake",
+      "command": "configure",
+      "preset": "debug",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Basket UI (Debug)",
+      "type": "cmake",
+      "command": "build",
+      "preset": "debug",
+      "targets": ["basket_ui"],
+      "dependsOn": ["Configure Basket UI (Debug)"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$msCompile"]
+    },
+    {
+      "label": "Configure Basket UI (Release)",
+      "type": "cmake",
+      "command": "configure",
+      "preset": "release",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Basket UI (Release)",
+      "type": "cmake",
+      "command": "build",
+      "preset": "release",
+      "targets": ["basket_ui"],
+      "dependsOn": ["Configure Basket UI (Release)"],
+      "group": "build",
+      "problemMatcher": ["$msCompile"]
+    }
+  ]
+}

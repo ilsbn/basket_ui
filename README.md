@@ -65,6 +65,23 @@ The presets also work with Ninja on Linux and macOS after installing the native
 build prerequisites required by Qt/vcpkg. The executable on those platforms is
 `./build/debug/src/basket_ui`. Native Linux GUI support enables Qt's XCB feature.
 
+## Run from VS Code (Windows)
+
+Open this project folder in VS Code and install the recommended **C/C++** and
+**CMake Tools** extensions. Ensure `VCPKG_ROOT` is set in VS Code's environment
+(restart VS Code after changing it).
+
+In **Run and Debug**, select **Basket UI (Debug)** or **Basket UI (Release)**,
+then press **F5** to debug or **Ctrl+F5** to run without debugging. Each launch
+configures and builds the matching CMake preset before starting the application.
+The Debug configuration supports source breakpoints; Release uses optimization.
+
+The default **Ctrl+Shift+B** build task builds the Debug application.
+These launch targets use the MSVC Windows debugger.
+
+See the [VS Code C++ debugging reference](https://code.visualstudio.com/docs/cpp/launch-json-reference)
+for launch configuration options.
+
 ## Layout
 
 ```text
