@@ -5,11 +5,13 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-TEST(MainWindow, StartsWithAnEmptyContentArea)
+TEST(MainWindow, HostsTheBasketOverview)
 {
     const basket::MainWindow window;
 
-    EXPECT_EQ(window.centralWidget(), nullptr);
+    ASSERT_NE(window.centralWidget(), nullptr);
+    EXPECT_THAT(window.centralWidget()->objectName().toStdString(),
+                ::testing::StrEq("basketOverview"));
     EXPECT_THAT(window.windowTitle().toStdString(), ::testing::StrEq("Basket UI"));
     EXPECT_FALSE(window.isVisible());
 }

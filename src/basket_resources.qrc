@@ -1,0 +1,5 @@
+<RCC>
+ <qresource prefix="/basket">
+  <file alias="chevron-down.xpm">icons/chevron-down.xpm</file>
+ </qresource>
+</RCC>

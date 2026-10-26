@@ -1,6 +1,11 @@
 # Basket UI
 
-A minimal C++20 / Qt 6 Widgets application that opens an empty main window.
+A C++20 / Qt 6 Widgets application with a basket overview prototype.
+
+The overview is defined in `src/basket_overview.ui`, editable in Qt Designer.
+It shows 20 sample baskets, sequence fields, status selectors, and a basket-type
+selector. The colours and summary counts are fixed design data: changing a field
+does not update colours, totals, or saved data.
 
 ## Prerequisites
 
@@ -90,7 +95,8 @@ CMakePresets.json    Debug/Release configure, build, and test presets
 vcpkg.json           Pinned third-party dependency manifest
 cmake/              Qt platform-plugin deployment helper
 src/main.cpp        Command-line options, logging, and Qt event loop
-src/main_window.*   Empty QMainWindow subclass
+src/main_window.*   Main window hosting the basket overview
+src/basket_overview.* Qt Designer form and widget setup
 tests/              GoogleTest/GoogleMock smoke tests and test entry point
 ```
 

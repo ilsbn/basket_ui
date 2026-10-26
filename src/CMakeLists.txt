@@ -1,7 +1,12 @@
 add_library(basket_ui_widgets STATIC
+    basket_overview.cpp
+    basket_overview.h
+    basket_overview.ui
+    basket_resources.qrc
     main_window.cpp
     main_window.h
 )
+set_target_properties(basket_ui_widgets PROPERTIES AUTORCC ON)
 target_include_directories(basket_ui_widgets PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(basket_ui_widgets PUBLIC Qt6::Widgets)
 
