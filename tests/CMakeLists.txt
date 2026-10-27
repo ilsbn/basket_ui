@@ -1,6 +1,7 @@
 add_executable(basket_ui_tests
     test_main.cpp
     main_window_test.cpp
+    basket_order_test.cpp
 )
 set_target_properties(basket_ui_tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"

@@ -96,37 +96,18 @@ QSpinBox[overviewField="true"]:focus { border-color: #7650ed; }
       <item>
        <widget class="QLabel" name="headingLabel">
         <property name="text">
-         <string>Available baskets</string>
+         <string>Basket slots</string>
         </property>
         <property name="role" stdset="0">
          <string>heading</string>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="basketGrid">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="horizontalSpacing">
-         <number>16</number>
-        </property>
-        <property name="verticalSpacing">
-         <number>18</number>
-        </property>
-       </layout>
+       <widget class="basket::BasketSlots" name="basketSlots" />
       </item>
       <item>
        <layout class="QHBoxLayout" name="summaryLayout">
@@ -321,4 +302,12 @@ QSpinBox[overviewField="true"]:focus { border-color: #7650ed; }
   <include location="basket_resources.qrc" />
  </resources>
  <connections />
+ <customwidgets>
+  <customwidget>
+   <class>basket::BasketSlots</class>
+   <extends>QWidget</extends>
+   <header>basket_slots.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
 </ui>

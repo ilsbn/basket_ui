@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget* parent)
     setWindowTitle(QStringLiteral("Basket UI"));
     baskets_ = initialBaskets;
     auto* overview = new BasketOverview(baskets_, this);
+    baskets_ = overview->baskets();
     connect(overview, &BasketOverview::basketsChanged, this, [this](const BasketArray& updated) {
         baskets_ = updated;
         emit basketsChanged(baskets_);

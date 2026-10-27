@@ -1,5 +1,7 @@
 add_library(basket_ui_widgets STATIC
     basket_details.h
+    basket_slots.cpp
+    basket_slots.h
     basket_overview.cpp
     basket_overview.h
     basket_overview_settings.h

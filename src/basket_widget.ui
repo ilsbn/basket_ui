@@ -4,8 +4,8 @@
  <widget class="QFrame" name="basketWidget">
   <property name="minimumSize">
    <size>
-    <width>150</width>
-    <height>118</height>
+    <width>132</width>
+    <height>100</height>
    </size>
   </property>
   <property name="basketCard" stdset="0">
@@ -31,96 +31,20 @@
     <number>4</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="entryHeader">
-     <property name="leftMargin">
-      <number>0</number>
+    <widget class="QLabel" name="indexLabel">
+     <property name="text">
+      <string>1</string>
      </property>
-     <property name="topMargin">
-      <number>0</number>
+     <property name="role" stdset="0">
+      <string>index</string>
      </property>
-     <property name="rightMargin">
-      <number>0</number>
+     <property name="toolTip">
+      <string>Basket ID; drag the basket to reorder it</string>
      </property>
-     <property name="bottomMargin">
-      <number>0</number>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
-     <property name="spacing">
-      <number>4</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="indexLabel">
-       <property name="text">
-        <string>Index: 1</string>
-       </property>
-       <property name="role" stdset="0">
-        <string>index</string>
-       </property>
-       <property name="toolTip">
-        <string>Immutable basket index</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="headerSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint">
-        <size>
-         <width>24</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="sequenceLabel">
-       <property name="text">
-        <string>Seq.</string>
-       </property>
-       <property name="role" stdset="0">
-        <string>sequence</string>
-       </property>
-       <property name="buddy">
-        <cstring>sequenceSpinBox</cstring>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="sequenceSpinBox">
-       <property name="minimumSize">
-        <size>
-         <width>42</width>
-         <height>26</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>58</width>
-         <height>28</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Sequence number (prototype only)</string>
-       </property>
-       <property name="accessibleName">
-        <string>Basket 1 sequence</string>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
-       <property name="maximum">
-        <number>9999</number>
-       </property>
-       <property name="value">
-        <number>5</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
    <item>
     <spacer name="topStatusSpacer">
@@ -169,7 +93,7 @@
       <widget class="QComboBox" name="statusComboBox">
        <property name="minimumSize">
         <size>
-         <width>126</width>
+         <width>112</width>
          <height>36</height>
         </size>
        </property>
@@ -245,8 +169,7 @@
   <property name="styleSheet">
    <string>QFrame#basketWidget { font-family: "Segoe UI"; font-size: 14px; }
 QLabel { background: transparent; border: none; }
-QLabel[role="index"] { color: #888096; font-size: 12px; }
-QLabel[role="sequence"] { color: #6a607a; font-size: 12px; }
+QLabel[role="index"] { color: #888096; font-size: 24px; }
 QFrame[basketCard="true"] {
     border: 2px solid #7650ed;
     border-radius: 15px;
@@ -255,15 +178,6 @@ QFrame[basketState="empty"] { background: #f0f0f5; }
 QFrame[basketState="in progress"] { background: #b8edbe; }
 QFrame[basketState="pending"] { background: #fff0a6; }
 QFrame[basketState="sold"] { background: #ffd0d0; }
-QSpinBox {
-    background: rgba(255, 255, 255, 195);
-    color: #453458;
-    border: 1px solid rgba(118, 80, 237, 65);
-    border-radius: 5px;
-    padding: 3px 4px;
-    font-size: 12px;
-}
-QSpinBox:focus { border: 1px solid #7650ed; }
 QComboBox[basketStatus="true"] {
     background: transparent;
     color: #6841dc;
@@ -287,6 +201,12 @@ QComboBox QAbstractItemView {
     selection-color: #5932ce;
     outline: none;
 }</string>
+  </property>
+  <property name="toolTip">
+   <string>Drag the basket background or header to change its order</string>
+  </property>
+  <property name="cursor">
+   <cursorShape>OpenHandCursor</cursorShape>
   </property>
  </widget>
  <resources>

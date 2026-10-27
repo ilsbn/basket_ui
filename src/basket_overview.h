@@ -13,6 +13,8 @@ class BasketOverview;
 
 namespace basket {
 
+class BasketWidget;
+
 class BasketOverview final : public QWidget
 {
     Q_OBJECT
@@ -21,6 +23,8 @@ public:
     explicit BasketOverview(const BasketArray& baskets, QWidget* parent = nullptr);
     ~BasketOverview() override;
     BasketOverviewSettings settings() const;
+    const BasketArray& baskets() const { return baskets_; }
+    bool moveBasket(int from, int to);
 
 signals:
     void basketsChanged(const basket::BasketArray& baskets);
@@ -30,6 +34,7 @@ signals:
 
 private:
     BasketArray baskets_;
+    std::array<BasketWidget*, 20> widgets_{};
     std::unique_ptr<Ui::BasketOverview> ui_;
 };
 

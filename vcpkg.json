@@ -10,6 +10,7 @@
       "name": "qtbase",
       "default-features": false,
       "features": [
+        "png",
         "widgets"
       ]
     },

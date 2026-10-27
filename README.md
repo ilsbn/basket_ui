@@ -5,11 +5,16 @@ A C++20 / Qt 6 Widgets application with a basket overview prototype.
 The overview shell is defined in `src/basket_overview.ui`. Each tile uses the same
 `BasketWidget` and `src/basket_widget.ui` form, editable in Qt Designer. The overview
 receives a `BasketArray` (`std::array<BasketDetails, 20>`) and creates one tile per
-entry, in array order. Each tile takes a `BasketDetails` struct containing `index`,
+entry, sorted by sequence in a snake-shaped path. Each tile takes a `BasketDetails` struct containing `index`,
 `sequence`, and `BasketStatus status`. Sample data is supplied by the main window;
 the widgets own copies of their data without retaining caller references.
-Sequence and status edits emit `BasketWidget::basketChanged(BasketDetails)`.
-The overview updates the corresponding array position and emits
+Sequence numbers are stored in the data and are not shown as input fields.
+Drag a card by its background or index header onto the desired slot to insert it
+there; the other cards shift along the path. A completed reorder assigns sequences
+1–20 and emits one full-array notification. Basket IDs and statuses are preserved;
+cancelled drags and same-slot drops leave the data unchanged.
+Status edits emit `BasketWidget::basketChanged(BasketDetails)`.
+The overview updates the current array position and emits
 `BasketOverview::basketsChanged(BasketArray)`. `MainWindow` keeps the latest array,
 available through `baskets()`, and emits its own `basketsChanged` signal for
 persistence code to connect to. Queued connections receive snapshots of each edit.
@@ -36,10 +41,26 @@ For example, in PowerShell, if vcpkg is not already configured:
 $env:VCPKG_ROOT = 'C:/path/to/vcpkg'
 ```
 
-The manifest pins a vcpkg baseline and installs Qt Widgets, Boost.Program_options,
+The manifest pins a vcpkg baseline and installs Qt Widgets with PNG support, Boost.Program_options,
 spdlog, and GoogleTest (including GoogleMock). No separate Qt installation or
 global `vcpkg integrate install` is needed. The first configure builds dependencies
 from source and can take a while. Both presets share `build/vcpkg_installed`.
+PNG support is required by Qt's built-in Windows hand and drag cursor images.
+
+The baseline controls dependency versions; it does not cache packages or skip
+dependency checks. CMake runs `vcpkg install` during configure, but unchanged
+dependencies are reported as **already installed** and reused. Keep
+`build/vcpkg_installed` when cleaning application build outputs. vcpkg also enables
+a local binary cache by default (on Windows, normally
+`%LOCALAPPDATA%/vcpkg/archives`) so compatible packages can be restored after the
+installed directory is removed. Changes to dependency features or the toolchain
+can require packages to be rebuilt even with the same baseline.
+Both presets set `VCPKG_FORCE_DOWNLOADED_BINARIES=1` so vcpkg uses its managed
+helper tools consistently between VS Code and terminal builds. This matters on
+Windows because the PowerShell version is part of each package's cache hash;
+switching versions can invalidate the entire dependency tree. Managed tools are
+downloaded once and reused. Updating vcpkg itself can still change these tool
+versions and require a dependency rebuild.
 
 ## Build and test
 
@@ -92,8 +113,15 @@ Open this project folder in VS Code and install the recommended **C/C++** and
 
 In **Run and Debug**, select **Basket UI (Debug)** or **Basket UI (Release)**,
 then press **F5** to debug or **Ctrl+F5** to run without debugging. Each launch
-configures and builds the matching CMake preset before starting the application.
+builds the matching CMake preset before starting the application.
 The Debug configuration supports source breakpoints; Release uses optimization.
+
+Before the first build of each preset, run the corresponding **Configure Basket
+UI (Debug)** or **Configure Basket UI (Release)** task via **Tasks: Run Task**,
+or use `cmake --preset debug` / `cmake --preset release`. Run configure again
+after changing preset options or dependencies. Routine builds do not force a
+configure; Ninja still reruns CMake automatically when tracked build inputs
+change.
 
 The default **Ctrl+Shift+B** build task builds the Debug application.
 These launch targets use the MSVC Windows debugger.
@@ -113,6 +141,7 @@ src/main_window.*   Main window hosting the basket overview
 src/basket_overview.* Qt Designer form and widget setup
 src/basket_widget.* Reusable basket tile and its Qt Designer form
 src/basket_details.h BasketDetails, BasketStatus, and the fixed-size BasketArray
+src/basket_slots.*  Snake path drawing and internal drag/drop handling
 tests/              GoogleTest/GoogleMock smoke tests and test entry point
 ```
 

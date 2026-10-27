@@ -12,6 +12,9 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "environment": {
+        "VCPKG_FORCE_DOWNLOADED_BINARIES": "1"
+      },
       "cacheVariables": {
         "BUILD_TESTING": "ON",
         "VCPKG_INSTALLED_DIR": "${sourceDir}/build/vcpkg_installed"

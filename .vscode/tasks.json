@@ -14,7 +14,6 @@
       "command": "build",
       "preset": "debug",
       "targets": ["basket_ui"],
-      "dependsOn": ["Configure Basket UI (Debug)"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -34,7 +33,6 @@
       "command": "build",
       "preset": "release",
       "targets": ["basket_ui"],
-      "dependsOn": ["Configure Basket UI (Release)"],
       "group": "build",
       "problemMatcher": ["$msCompile"]
     }
